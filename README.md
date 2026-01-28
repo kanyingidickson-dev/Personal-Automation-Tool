@@ -1,5 +1,7 @@
 # Personal Automation Tool
 
+![CI](https://github.com/kanyingidickson-dev/Personal-Automation-Tool/actions/workflows/ci.yml/badge.svg)
+
 A small, useful automation utility that organizes files in a folder according to configurable rules.
 
 This repo is designed to be:
