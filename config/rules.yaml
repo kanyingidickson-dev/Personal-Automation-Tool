@@ -1,0 +1,26 @@
+source_dir: ./example_inbox
+
+# Where to place files (subfolders under source_dir by default)
+destinations:
+  images: Images
+  documents: Documents
+  archives: Archives
+  code: Code
+  other: Other
+
+rules:
+  - name: images
+    extensions: [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"]
+    destination: images
+
+  - name: documents
+    extensions: [".pdf", ".doc", ".docx", ".txt", ".md", ".csv", ".xlsx"]
+    destination: documents
+
+  - name: archives
+    extensions: [".zip", ".tar", ".gz", ".7z"]
+    destination: archives
+
+  - name: code
+    extensions: [".py", ".js", ".ts", ".json", ".yaml", ".yml"]
+    destination: code
