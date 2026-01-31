@@ -109,10 +109,6 @@ To enable Pages for this repo:
 - Go to **Settings** -> **Pages**
 - Under **Build and deployment**, set **Source** to **GitHub Actions**
 
-After you merge to `main`, the workflow `.github/workflows/pages.yml` deploys `docs/` to:
-
-- `https://kanyingidickson-dev.github.io/Personal-Automation-Tool/`
-
 ## Future improvements
 
 - Add richer rule conditions (size/date ranges, nested destination paths)
