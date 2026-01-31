@@ -30,9 +30,27 @@ This tool automatically moves files into destination subfolders based on rules (
 ## How to run locally
 
 ```bash
+python3 -m venv .venv
+. .venv/bin/activate
 pip install -r requirements.txt
 python -m src.main --config config/rules.yaml --dry-run
 python -m src.main --config config/rules.yaml
+```
+
+## CLI options
+
+```bash
+# log configuration
+python -m src.main --config config/rules.yaml --log-level DEBUG --log-file ./logs/output.log
+
+# delete empty directories after moves
+python -m src.main --config config/rules.yaml --delete-empty-dirs
+
+# record moves to a ledger file (used for undo)
+python -m src.main --config config/rules.yaml --ledger-file ./logs/move_ledger.jsonl
+
+# undo the last recorded move
+python -m src.main --undo-last --ledger-file ./logs/move_ledger.jsonl
 ```
 
 ## Example configuration
@@ -44,7 +62,7 @@ See `config/rules.yaml`.
 Example (run every day at 6pm):
 
 ```cron
-0 18 * * * /usr/bin/python3 /path/to/automation-tool/src/main.py --config /path/to/automation-tool/config/rules.yaml >> /path/to/automation-tool/logs/cron.log 2>&1
+0 18 * * * /usr/bin/python3 -m src.main --config /path/to/automation-tool/config/rules.yaml --ledger-file /path/to/automation-tool/logs/move_ledger.jsonl >> /path/to/automation-tool/logs/cron.log 2>&1
 ```
 
 ## Design decisions
@@ -53,9 +71,32 @@ Example (run every day at 6pm):
 - Moves are performed using `pathlib` and `shutil.move` for portability.
 - Logs are written to `logs/automation.log`.
 
+## Rule configuration features
+
+Rules can match files using any of:
+
+- `extensions` (e.g. `['.pdf', '.png']`)
+- `pattern` (fnmatch/glob style, e.g. `"report_*.pdf"`)
+- `regex` (Python regex matched against the filename)
+
+If multiple rules match, the rule with the highest `priority` wins.
+
+Duplicate handling is controlled by:
+
+- global `duplicate_strategy`: `skip` (default), `rename`, `overwrite`
+- optional per-rule `duplicate_strategy`
+
+## Web UI demo (optional)
+
+If you want a simple browser-based interface (dry-run, execute, undo), you can run the Streamlit demo app.
+
+```bash
+pip install -r requirements-ui.txt
+streamlit run streamlit_app.py
+```
+
 ## Future improvements
 
-- Add duplicate-handling strategy (rename/skip/overwrite)
-- Add rule priority and regex rules
-- Add unit tests for more edge cases
-- Add `--delete-empty-dirs` option
+- Add richer rule conditions (size/date ranges, nested destination paths)
+- Add notifications (email/Slack) for success/failures
+- Add packaging for distribution (PyPI)
