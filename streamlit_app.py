@@ -53,7 +53,10 @@ def _apply_theme(theme: str) -> None:
     st.markdown(
         f"""
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+        @import url(
+            'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600'
+            '&family=DM+Mono:wght@400;500&display=swap'
+        );
 
         :root {{
             --bg: {tokens["bg"]};
