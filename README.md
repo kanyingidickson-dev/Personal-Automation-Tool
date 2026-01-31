@@ -95,6 +95,20 @@ pip install -r requirements-ui.txt
 streamlit run streamlit_app.py
 ```
 
+## GitHub Pages (static site)
+
+This repository includes a static landing page under `docs/` that can be deployed with GitHub Pages.
+
+Important:
+
+- GitHub Pages can only host **static** files (HTML/CSS/JS).
+- The interactive GUI is the **Streamlit** app (`streamlit_app.py`), which must be run locally or deployed to a Python-capable host.
+
+To enable Pages for this repo:
+
+- Go to **Settings** -> **Pages**
+- Under **Build and deployment**, set **Source** to **GitHub Actions**
+
 ## Future improvements
 
 - Add richer rule conditions (size/date ranges, nested destination paths)
